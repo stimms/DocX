@@ -2270,11 +2270,6 @@ namespace Novacode
             }
         }
 
-        private XElement GetProceedingRun(XElement element)
-        {
-            return element.ElementsBeforeSelf(XName.Get("r", DocX.w.NamespaceName)).Last();
-        }
-
         internal string GetOrGenerateRel(Picture p)
         {
             string image_uri_string = p.img.pr.TargetUri.OriginalString;
