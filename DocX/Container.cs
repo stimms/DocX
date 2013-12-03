@@ -387,6 +387,11 @@ namespace Novacode
                         p.ReplaceText(oldValue, newValue, trackChanges, options, newFormatting, matchFormatting, fo);
         }
 
+        public virtual void InsertAtBookmark(string toInsert, string bookmarkName)
+        {
+            
+        }
+
         public virtual Paragraph InsertParagraph(int index, string text, bool trackChanges)
         {
             return InsertParagraph(index, text, trackChanges, null);

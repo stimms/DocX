@@ -87,6 +87,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Bookmark.cs" />
     <Compile Include="Border.cs" />
     <Compile Include="Charts\Axis.cs" />
     <Compile Include="Charts\BarChart.cs" />
