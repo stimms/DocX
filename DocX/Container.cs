@@ -369,19 +369,19 @@ namespace Novacode
             // ReplaceText in Headers of the document.
             Headers headers = Document.Headers;
             List<Header> headerList = new List<Header> { headers.first, headers.even, headers.odd };
-            foreach (Header h in headerList)
+            foreach (var h in headerList)
                 if (h != null)
                     foreach (Paragraph p in h.Paragraphs)
                         p.ReplaceText(oldValue, newValue, trackChanges, options, newFormatting, matchFormatting, fo);
 
             // ReplaceText int main body of document.
-            foreach (Paragraph p in Paragraphs)
+            foreach (var p in Paragraphs)
                 p.ReplaceText(oldValue, newValue, trackChanges, options, newFormatting, matchFormatting, fo);
 
             // ReplaceText in Footers of the document.
             Footers footers = Document.Footers;
             List<Footer> footerList = new List<Footer> { footers.first, footers.even, footers.odd };
-            foreach (Footer f in footerList)
+            foreach (var f in footerList)
                 if (f != null)
                     foreach (Paragraph p in f.Paragraphs)
                         p.ReplaceText(oldValue, newValue, trackChanges, options, newFormatting, matchFormatting, fo);
@@ -389,7 +389,23 @@ namespace Novacode
 
         public virtual void InsertAtBookmark(string toInsert, string bookmarkName)
         {
-            
+            if (String.IsNullOrWhiteSpace(bookmarkName))
+                throw new ArgumentException("bookmark cannot be null or empty", "bookmarkName");
+
+            var headerCollection = Document.Headers;
+            var headers = new List<Header> { headerCollection.first, headerCollection.even, headerCollection.odd };
+            foreach (var header in headers.Where(x => x != null))
+                foreach (var paragraph in header.Paragraphs)
+                    paragraph.InsertAtBookmark(toInsert, bookmarkName);
+
+            foreach (var paragraph in Paragraphs)
+                paragraph.InsertAtBookmark(toInsert, bookmarkName);
+
+            var footerCollection = Document.Footers;
+            var footers = new List<Footer> { footerCollection.first, footerCollection.even, footerCollection.odd };
+            foreach (var footer in footers.Where(x => x != null))
+                foreach (var paragraph in footer.Paragraphs)
+                    paragraph.InsertAtBookmark(toInsert, bookmarkName);
         }
 
         public virtual Paragraph InsertParagraph(int index, string text, bool trackChanges)
